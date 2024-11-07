@@ -147,7 +147,7 @@ export function EmailLoginForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-             <PayWithCoinbaseButton disabled={!userSmartWalletAddress} smartWalletAddress={userSmartWalletAddress} />
+              <PayWithCoinbaseButton disabled={!userSmartWalletAddress} smartWalletAddress={userSmartWalletAddress} />
           </CardContent>
         </Card>
       </div>

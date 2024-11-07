@@ -3,7 +3,7 @@ import { CBPayInstanceType, initOnRamp } from "@coinbase/cbpay-js";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-export const PayWithCoinbaseButton = ({ userSmartWallet, disabled }: any) => {
+export const PayWithCoinbaseButton = ({ smartWalletAddress, disabled }: any) => {
   const [onrampInstance, setOnrampInstance] = useState<CBPayInstanceType | null>();
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export const PayWithCoinbaseButton = ({ userSmartWallet, disabled }: any) => {
       appId: "aff0ca57-758c-416b-8844-03b0abbecec1",
       widgetParameters: {
         // Specify the addresses and which networks they support
-        addresses: { [userSmartWallet]: ["base"]},
+        addresses: { [smartWalletAddress]: ["base"]},
         // Filter the available assets on the above networks to just these ones
         assets: ['ETH','USDC'],
       },
