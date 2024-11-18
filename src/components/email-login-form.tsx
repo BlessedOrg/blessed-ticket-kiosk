@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import StripeCheckoutButton from "@/components/stripe-checkout";
 import { login, verify } from "@/actions";
 import CardWrapper from "@/components/card-wrapper";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const emailSchema = z.object({
   email: z.string().email({ message: "Invalid email address" })
@@ -21,7 +22,6 @@ const otpSchema = z.object({
 export function EmailLoginForm({ ticketDetails }: any) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [step, setStep] = useState(1);
-  const [userSmartWalletAddress, setUserSmartWalletAddress] = useState();
   const [userId, setUserId] = useState();
 
   const emailForm = useForm<z.infer<typeof emailSchema>>({
@@ -55,7 +55,6 @@ export function EmailLoginForm({ ticketDetails }: any) {
       const data = await verify(values.otp);
       if (data) {
         setIsAuthenticated(true);
-        setUserSmartWalletAddress(data?.smartWalletAddress);
         setUserId(data?.userId);
         console.log("🔮 data: ", data);
       }
@@ -104,9 +103,19 @@ export function EmailLoginForm({ ticketDetails }: any) {
                   name="otp"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>OTP</FormLabel>
+                      {/*<FormLabel className="text-center block">OTP</FormLabel>*/}
                       <FormControl>
-                        <Input placeholder="Enter 5-digit OTP" {...field} maxLength={5} />
+                        <div className="flex justify-center">
+                          <InputOTP maxLength={5} {...field}>
+                            <InputOTPGroup>
+                              <InputOTPSlot className="w-10 h-10" index={0} />
+                              <InputOTPSlot className="w-10 h-10" index={1} />
+                              <InputOTPSlot className="w-10 h-10" index={2} />
+                              <InputOTPSlot className="w-10 h-10" index={3} />
+                              <InputOTPSlot className="w-10 h-10" index={4} />
+                            </InputOTPGroup>
+                          </InputOTP>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

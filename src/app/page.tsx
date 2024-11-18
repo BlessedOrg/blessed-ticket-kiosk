@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const ticketDetails = await getTicketDetails();
+  console.log("🎫 ticketDetails: ", ticketDetails)
 
   return (
     <EmailLoginForm ticketDetails={ticketDetails} />
