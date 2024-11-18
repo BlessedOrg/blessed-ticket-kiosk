@@ -25,8 +25,8 @@ export const PayWithCoinbaseButton = ({ smartWalletAddress, disabled }: any) => 
       onEvent: (event) => {
         console.log('event', event);
       },
-      experienceLoggedIn: 'popup',
-      experienceLoggedOut: 'popup',
+      experienceLoggedIn: "embedded",
+      experienceLoggedOut: "embedded",
       closeOnExit: true,
       closeOnSuccess: true,
     }, (_, instance) => {
