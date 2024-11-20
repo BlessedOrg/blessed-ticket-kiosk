@@ -1,38 +1,35 @@
 "use client";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { Button } from "@/components/ui/button";
 import { createStripeCheckout } from "@/actions";
-
+import { useRouter } from "next/navigation";
 
 export default function StripeCheckoutButton({ userId, ticketId }: { userId: string, ticketId: string }) {
-  console.log({ userId, ticketId });
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const stripePromise = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
       const session = await createStripeCheckout(userId, ticketId)
 
-      const stripe = stripePromise;
-      if (stripe) {
-        await stripe.redirectToCheckout({
-          sessionId: session.id
-        });
+      if (session.url) {
+        router.push(session.url);
+      } else {
+        alert("Something went wrong. Please contact the Blessed team");
       }
 
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      console.log("🚨 Error on stripe-checkout: ", error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Button onClick={handleSubmit} disabled={loading}>
+    <Button onClick={handleSubmit} disabled={loading} className="w-full">
       Pay with Stripe
     </Button>
   );

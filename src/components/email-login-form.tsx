@@ -55,7 +55,7 @@ export function EmailLoginForm({ ticketDetails }: any) {
       const data = await verify(values.otp);
       if (data) {
         setIsAuthenticated(true);
-        setUserId(data?.userId);
+        setUserId(data.user.id);
         console.log("🔮 data: ", data);
       }
     } catch (err: any) {

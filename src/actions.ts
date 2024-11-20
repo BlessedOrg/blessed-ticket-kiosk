@@ -6,15 +6,14 @@ const headers = {
 }
 
 export const getTicketDetails = async () => {
-  console.log("🔮 URL: ", `${process.env.NEXT_PUBLIC_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/details`)
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/details`, {
+  const res = await fetch(`${process.env.BLESSED_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/details`, {
     headers
   });
   return res.json();
 };
 
 export const login = async (email: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
+  const res = await fetch(`${process.env.BLESSED_API_URL}/users/login`, {
     method: "POST",
     headers,
     body: JSON.stringify({ email })
@@ -23,7 +22,7 @@ export const login = async (email: string) => {
 };
 
 export const verify = async (code: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/verify`, {
+  const res = await fetch(`${process.env.BLESSED_API_URL}/users/verify`, {
     method: "POST",
     headers,
     body: JSON.stringify({ code })
@@ -32,9 +31,7 @@ export const verify = async (code: string) => {
 };
 
 export const createStripeCheckout = async (userId: string, ticketId: string) => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/checkout-session`
-
-  console.log("🔥 url: ", url)
+  const url = `${process.env.BLESSED_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/checkout-session`
 
   const res = await fetch(url, {
     method: "POST",
