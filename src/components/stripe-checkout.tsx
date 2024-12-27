@@ -15,6 +15,8 @@ export default function StripeCheckoutButton({ userId, ticketId }: { userId: str
 
       const session = await createStripeCheckout(userId, ticketId)
 
+      console.log("🌳 session: ", session)
+
       if (session.url) {
         router.push(session.url);
       } else {

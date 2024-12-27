@@ -23,6 +23,7 @@ export function EmailLoginForm({ ticketDetails }: any) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [step, setStep] = useState(1);
   const [userId, setUserId] = useState();
+  const [smartWalletAddress, setSmartWalletAddress] = useState();
 
   const emailForm = useForm<z.infer<typeof emailSchema>>({
     resolver: zodResolver(emailSchema),
@@ -56,6 +57,7 @@ export function EmailLoginForm({ ticketDetails }: any) {
       if (data) {
         setIsAuthenticated(true);
         setUserId(data.user.id);
+        setSmartWalletAddress(data.user.smartWalletAddress);
         console.log("🔮 data: ", data);
       }
     } catch (err: any) {
@@ -134,7 +136,10 @@ export function EmailLoginForm({ ticketDetails }: any) {
           ) : null}
         </>
       ) : (
-        <StripeCheckoutButton  userId={userId!} ticketId={ticketDetails.ticketId} />
+        <>
+          <StripeCheckoutButton userId={userId!} ticketId={ticketDetails.ticketId} />
+          {/*<PayWithCoinbaseButton smartWalletAddress={smartWalletAddress} />*/}
+        </>
       )}
     </CardWrapper>
   );
