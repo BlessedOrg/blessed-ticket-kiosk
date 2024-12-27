@@ -31,7 +31,9 @@ export const verify = async (code: string) => {
 };
 
 export const createStripeCheckout = async (userId: string, ticketId: string) => {
-  const url = `${process.env.BLESSED_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/tickets/${process.env.BLESSED_TICKET_ID}/checkout-session`
+  const url = `${process.env.BLESSED_API_URL}/events/${process.env.BLESSED_EVENT_SLUG}/private/tickets/${process.env.BLESSED_TICKET_ID}/checkout-session`
+
+  console.log("🔮 url: ", url)
 
   const res = await fetch(url, {
     method: "POST",
